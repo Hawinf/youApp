@@ -7,16 +7,21 @@ export default function Add() {
       <div className={AddStyle['wrapper-add']}>
         <div className='container'>
             <div className={AddStyle['add-nav']}>
-              <a href="/">
-                        <Image src={BackArrow} 
-                            alt="Image Description"
-                            width="100"      
-                            height="100" 
-                            placeholder='blur'
-                            className={AddStyle['back-add']}
-                        />
-              </a>
-              <a href="/" className={AddStyle['add-back']}>Back</a>
+              <div className={AddStyle['addnav-left']}>
+                <a href="/">
+                          <Image src={BackArrow} 
+                              alt="Image Description"
+                              width="100"      
+                              height="100" 
+                              placeholder='blur'
+                              className={AddStyle['back-add']}
+                          />
+                </a>
+                <a href="/" className={AddStyle['add-back']}>Back</a>
+              </div>
+              <div className={AddStyle['addnav-right']}>
+                <button className={AddStyle['add-save']}>Save</button>
+              </div>
             </div>
             <div className={AddStyle['interest-card']}>
               <h5 className={AddStyle['interest-tittle']}>Tell everyone about yourself</h5>

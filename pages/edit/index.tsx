@@ -1,6 +1,5 @@
 import editStyle from './edit.module.css';
 import BackArrow from '../../assets/images/left.png';
-import Menu from '../../assets/images/menu.png';
 import Profile from '../../assets/images/profile.png';
 import EditImg from '../../assets/images/edit-2.png';
 import Image from 'next/image';
