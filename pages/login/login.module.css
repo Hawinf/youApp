@@ -6,12 +6,19 @@
     padding: 70px 15px;
     margin-top: 10px;
 }
-.back-login {
+.login-nav {
     display: flex;
+    margin-bottom: 30px;
 }
-.backArrow {
-    width: 51px;
-    height: 20px;
+.login-back {
+    width: 24px;
+    height: 24px;
+}
+.login-back-desc {
+    color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 1px;
 }
 .login-title {
     color: rgba(255, 255, 255, 1);

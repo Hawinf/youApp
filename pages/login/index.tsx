@@ -1,5 +1,5 @@
 import LoginStyle from './login.module.css';
-import BackArrow1 from '../../assets/images/backArrow.png';
+import BackArrow from '../../assets/images/left.png';
 import Image from 'next/image';
 
 
@@ -7,15 +7,18 @@ export default function Home() {
     return (
             <div className={LoginStyle['wrapper-login']}>
                 <div className='container'>
-                    <a href='/'>
-                        <Image src={BackArrow1} 
-                            alt="Image Description"
-                            width="100"      
-                            height="100" 
-                            placeholder='blur'
-                            className={LoginStyle['backArrow']}
-                        />
-                    </a>
+                    <div className={LoginStyle['login-nav']}>
+                        <a href="/">
+                            <Image src={BackArrow} 
+                                alt="Image Description"
+                                width="100"      
+                                height="100" 
+                                placeholder='blur'
+                                className={LoginStyle['login-back']}
+                            />
+                        </a>
+                        <a href="/" className={LoginStyle['login-back-desc']}>Back</a>
+                    </div>
                     <h1 className={LoginStyle['login-title']}>Login</h1>
                     <div>
                         <input className={LoginStyle['input-login']} placeholder='Enter Username/Email' />

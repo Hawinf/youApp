@@ -1,7 +1,29 @@
+import AddStyle from './add.module.css';
+import BackArrow from '../../assets/images/left.png';
+import Image from 'next/image';
+
 export default function Add() {
     return (
-      <div>
-        <h1>Add</h1>
+      <div className={AddStyle['wrapper-add']}>
+        <div className='container'>
+            <div className={AddStyle['add-nav']}>
+              <a href="/">
+                        <Image src={BackArrow} 
+                            alt="Image Description"
+                            width="100"      
+                            height="100" 
+                            placeholder='blur'
+                            className={AddStyle['back-add']}
+                        />
+              </a>
+              <a href="/" className={AddStyle['add-back']}>Back</a>
+            </div>
+            <div className={AddStyle['interest-card']}>
+              <h5 className={AddStyle['interest-tittle']}>Tell everyone about yourself</h5>
+              <h2 className={AddStyle['interest-desc']}>What interest you?</h2>
+            </div>
+            <input className={AddStyle['interest-input']} />
+        </div>
       </div>
     );
   }
