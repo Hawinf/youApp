@@ -13,14 +13,67 @@ import { config } from 'process';
 export default function Create() {
     const [create, setCreate] = useState(false);
     const [input, setInput] = useState();
+    const [username, setUsername] = useState();
+    const [profile, setProfile] = useState(null);
+    const [dname, setDname] = useState('');
+    const [gender, setGender] = useState('default');
+    const [birthday, setBirthday] = useState('');
+    const [height, setHeight] = useState();
+    const [weight, setWeight] = useState();
+    const [interest, setInterest] = useState([]);
 
     const onCreate = () => {
         setCreate(true);
     }
+
+    const handleProfile = (e) => {
+        setProfile(e.target.files[0]);
+    }
+    const handleDname = (e) => {
+        setDname(e.target.value);
+    }
+    const handleGender = (e) => {
+        setGender(e.target.value);
+        console.log(gender)
+    }
+    const handleBirthday = (e) => {
+        setBirthday(e.target.value);
+    }
+    const handleHeight = (e) => {
+        setHeight(e.target.value);
+    }
+    const handleWeight = (e) => {
+        setWeight(e.target.value);
+    }
+
+    const createProfile = () => {
+        
+        const formData = new FormData();
+            formData.append("name", dname);
+            formData.append("birthday", birthday);
+            formData.append("height", height);
+            formData.append("weight", weight);
+            formData.append("interests", interest)
+        
+        if (typeof window !== 'undefined') {
+            const token = localStorage.getItem('token');
+            const config = {
+                        headers: {
+                            "x-access-token": token,
+                        },
+                    };    
+
+        axios
+            .post('https://techtest.youapp.ai/api/createProfile', formData, config)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => console.log(err));
+    }}
+
     const getProfile = () => {
         if (typeof window !== 'undefined') {
             const token = localStorage.getItem('token');
-            console.log(token, 'token ni bos');
             const config = {
                         headers: {
                             "x-access-token": token,
@@ -28,7 +81,9 @@ export default function Create() {
                     };
             axios
                 .get('https://techtest.youapp.ai/api/getProfile', config)
-                .then((res) => console.log(res))
+                .then((res) => {
+                    setUsername(res.data.data.username)
+                })
                 .catch((err) => console.log(err))
         }
     }
@@ -54,7 +109,7 @@ export default function Create() {
                     </a>
                     <a href='/login' className={createStyle['back-desc']}>Back</a>
                 </div>
-                <p className={createStyle['create-user']}>@User Name</p>
+                <p className={createStyle['create-user']}>user</p>
                 <Image src={Menu} 
                             alt="Image Description"
                             width="100"      
@@ -72,7 +127,10 @@ export default function Create() {
                                 placeholder='blur'
                                 className={createStyle['create-img']}
                 />
-                <h5 className={createStyle['user-profile']}>@johnDee</h5>
+                {
+                    username ? <h5 className={createStyle['user-profile']}>@{username}</h5> : null
+                }
+                
                 <Image src={EditImg} 
                                 alt="Image Description"
                                 width="100"      
@@ -86,7 +144,7 @@ export default function Create() {
                 <div className={createStyle['create-about-tittle']}>
                     <h5 className={createStyle['about-tittle']}>About</h5>
                     {
-                        create ? <button className={createStyle['create-save']}>Save & Update</button> : 
+                        create ? <button onClick={createProfile} className={createStyle['create-save']}>Save & Update</button> : 
                                 <Image src={EditImg} 
                                     alt="Image Description"
                                     width="100"      
@@ -102,46 +160,47 @@ export default function Create() {
                     create ? 
                     <div className={createStyle['create-form']}>
                         <div className={createStyle['form-addingpict']}>
-                            <Image src={AddImg} 
+                            {/* <Image src={AddImg} 
                                 alt="Image Description"
                                 width="100"      
                                 height="100" 
                                 placeholder='blur'
                                 className={createStyle['add-img']}
-                            />
+                            /> */}
+                            <input onChange={handleProfile} type='file'/>
                             <p className={createStyle['addpic-desc']}>Add Image</p>
                         </div>
                         <div className={createStyle['card-input']}>
                             <p className={createStyle['input-tittle']}>Display name:</p>
-                            <input className={createStyle['input-data']} placeholder='Enter Name' />
+                            <input onChange={handleDname} className={createStyle['input-data']} placeholder='Enter Name' />
                         </div>
                         <div className={createStyle['card-input']}>
-                            <label className={createStyle['input-tittle']}>Choose a car:</label>
-                            <select className={createStyle['input-data']}>
-                                <option className={createStyle['bg-gender']} disabled >Select Gender</option>
-                                <option className={createStyle['bg-gender']}>Laki-laki</option>
-                                <option className={createStyle['bg-gender']}>Perempuan</option>
+                            <label className={createStyle['input-tittle']}>Select gender:</label>
+                            <select value={gender} onChange={handleGender} className={createStyle['input-data']}>
+                                <option value="default" className={createStyle['bg-gender']} disabled selected hidden >Select Gender</option>
+                                <option value="male" className={createStyle['bg-gender']}>Laki-laki</option>
+                                <option value="female" className={createStyle['bg-gender']}>Perempuan</option>
                             </select>
                         </div>
                         <div className={createStyle['card-input']}>
                             <p className={createStyle['input-tittle']}>Birthday:</p>
-                            <input className={createStyle['input-data']} placeholder='DD MM YYYY' />
+                            <input onChange={handleBirthday} className={createStyle['input-data']} placeholder='DD MM YYYY' />
                         </div>
                         <div className={createStyle['card-input']}>
                             <p className={createStyle['input-tittle']}>Horoscope:</p>
-                            <input className={createStyle['input-data']} placeholder='--' />
+                            <input disabled className={createStyle['input-data']} placeholder='--' />
                         </div>
                         <div className={createStyle['card-input']}>
                             <p className={createStyle['input-tittle']}>Zodiac:</p>
-                            <input className={createStyle['input-data']} placeholder='--' />
+                            <input disabled className={createStyle['input-data']} placeholder='--' />
                         </div>
                         <div className={createStyle['card-input']}>
                             <p className={createStyle['input-tittle']}>Height:</p>
-                            <input className={createStyle['input-data']} placeholder='Add height' />
+                            <input onChange={handleHeight} className={createStyle['input-data']} placeholder='Add height' />
                         </div>
                         <div className={createStyle['card-input']}>
                             <p className={createStyle['input-tittle']}>Weight:</p>
-                            <input className={createStyle['input-data']} placeholder='Add weight' />
+                            <input onChange={handleWeight} className={createStyle['input-data']} placeholder='Add weight' />
                         </div>
                     </div>
                     : 
@@ -152,13 +211,15 @@ export default function Create() {
             <div className={createStyle['create-about']}>
                 <div className={createStyle['create-about-tittle']}>
                     <h5 className={createStyle['about-tittle']}>Interest</h5>
-                    <Image src={EditImg} 
-                                alt="Image Description"
-                                width="100"      
-                                height="100" 
-                                placeholder='blur'
-                                className={createStyle['about-edit']}
-                    />
+                    <a href="/add">
+                        <Image src={EditImg} 
+                                    alt="Image Description"
+                                    width="100"      
+                                    height="100" 
+                                    placeholder='blur'
+                                    className={createStyle['about-edit']}
+                        />
+                    </a>
                 </div>
                 <p className={createStyle['about-desc']}>Add in your interest to find a better match</p>
             </div>
