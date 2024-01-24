@@ -6,20 +6,47 @@ import EditImg from '../../assets/images/edit-2.png';
 import Image from 'next/image';
 import AddImg from '../../assets/images/addImage.png';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { config } from 'process';
 
 export default function Create() {
     const [create, setCreate] = useState(false);
+    const [input, setInput] = useState();
 
     const onCreate = () => {
         setCreate(true);
     }
+
+    // if (typeof window !== 'undefined') {
+    //     const token = localStorage.getItem('token');
+    // }
+
+    useEffect(() => {
+        // const config = {
+        //     header: {
+        //         'x-access-token': token,
+        //     },
+        // };
+        if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('token');
+        }
+        
+        axios
+            .get('https://techtest.youapp.ai/api/getProfile', {header: { access_token: token} })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => console.log(err))
+    })
+    
     return (
       <div className={createStyle['wrapper-create']}>
         <div className='container'>
 
             <div className={createStyle['create-nav']}>
                 <div className={createStyle['create-back']}>
-                    <a href="/">
+                    <a href="/login">
                         <Image src={BackArrow} 
                             alt="Image Description"
                             width="100"      
@@ -28,7 +55,7 @@ export default function Create() {
                             className={createStyle['back-arrow']}
                         />
                     </a>
-                    <a href='/' className={createStyle['back-desc']}>Back</a>
+                    <a href='/login' className={createStyle['back-desc']}>Back</a>
                 </div>
                 <p className={createStyle['create-user']}>@User Name</p>
                 <Image src={Menu} 

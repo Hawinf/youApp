@@ -31,14 +31,19 @@ export default function Home() {
             .post('https://techtest.youapp.ai/api/login', payload)
             .then((res) => {
                 console.log(res)
+                localStorage.setItem('token', res.data.access_token);
+                router.push('/createprofile'); 
             })
-            .catch((err) => console.log(err))
-    }
+            .catch((err) => {
+                alert(err.response.data.message)
+            })
+    };
+    
     return (
             <div className={LoginStyle['wrapper-login']}>
                 <div className='container'>
                     <div className={LoginStyle['login-nav']}>
-                        <a href="/">
+                        <a href="/register">
                             <Image src={BackArrow} 
                                 alt="Image Description"
                                 width="100"      
@@ -47,7 +52,7 @@ export default function Home() {
                                 className={LoginStyle['login-back']}
                             />
                         </a>
-                        <a href="/" className={LoginStyle['login-back-desc']}>Back</a>
+                        <a href="/register" className={LoginStyle['login-back-desc']}>Back</a>
                     </div>
                     <h1 className={LoginStyle['login-title']}>Login</h1>
                     <div>

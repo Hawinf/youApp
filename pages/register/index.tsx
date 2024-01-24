@@ -32,7 +32,7 @@ export default function Register() {
         axios
             .post('https://techtest.youapp.ai/api/register', payload)
             .then((res) => {
-                router.push('/login')
+                router.push('/login');
             })
             .catch((err) => {
                 if (err.response.status == 400) {
@@ -44,7 +44,7 @@ export default function Register() {
             <div className={LoginStyle['wrapper-login']}>
                 <div className='container'>
                     <div className={LoginStyle['login-nav']}>
-                        <a href="/">
+                        <a href="/login">
                             <Image src={BackArrow} 
                                 alt="Image Description"
                                 width="100"      
@@ -53,7 +53,7 @@ export default function Register() {
                                 className={LoginStyle['login-back']}
                             />
                         </a>
-                        <a href="/" className={LoginStyle['login-back-desc']}>Back</a>
+                        <a href="/login" className={LoginStyle['login-back-desc']}>Back</a>
                     </div>
                     <h1 className={LoginStyle['login-title']}>Register</h1>
                     <div>
