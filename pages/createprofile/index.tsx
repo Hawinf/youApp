@@ -17,27 +17,24 @@ export default function Create() {
     const onCreate = () => {
         setCreate(true);
     }
-
-    // if (typeof window !== 'undefined') {
-    //     const token = localStorage.getItem('token');
-    // }
-
-    useEffect(() => {
-        // const config = {
-        //     header: {
-        //         'x-access-token': token,
-        //     },
-        // };
+    const getProfile = () => {
         if (typeof window !== 'undefined') {
-        const token = localStorage.getItem('token');
+            const token = localStorage.getItem('token');
+            console.log(token, 'token ni bos');
+            const config = {
+                        headers: {
+                            "x-access-token": token,
+                        },
+                    };
+            axios
+                .get('https://techtest.youapp.ai/api/getProfile', config)
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err))
         }
-        
-        axios
-            .get('https://techtest.youapp.ai/api/getProfile', {header: { access_token: token} })
-            .then((res) => {
-                console.log(res)
-            })
-            .catch((err) => console.log(err))
+    }
+    
+    useEffect(() => {
+        getProfile();
     })
     
     return (
