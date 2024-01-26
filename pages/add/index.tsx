@@ -8,7 +8,7 @@ export default function Add() {
         <div className='container'>
             <div className={AddStyle['add-nav']}>
               <div className={AddStyle['addnav-left']}>
-                <a href="/">
+                <a href="/profile">
                           <Image src={BackArrow} 
                               alt="Image Description"
                               width="100"      
@@ -17,7 +17,7 @@ export default function Add() {
                               className={AddStyle['back-add']}
                           />
                 </a>
-                <a href="/" className={AddStyle['add-back']}>Back</a>
+                <a href="/profile" className={AddStyle['add-back']}>Back</a>
               </div>
               <div className={AddStyle['addnav-right']}>
                 <button className={AddStyle['add-save']}>Save</button>

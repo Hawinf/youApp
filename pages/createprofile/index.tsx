@@ -15,9 +15,9 @@ export default function Create() {
     const [input, setInput] = useState();
     const [username, setUsername] = useState();
     const [profile, setProfile] = useState(null);
-    const [dname, setDname] = useState('');
-    const [gender, setGender] = useState('default');
-    const [birthday, setBirthday] = useState('');
+    const [dname, setDname] = useState("");
+    const [gender, setGender] = useState("");
+    const [birthday, setBirthday] = useState("");
     const [height, setHeight] = useState();
     const [weight, setWeight] = useState();
     const [interest, setInterest] = useState([]);
@@ -31,10 +31,10 @@ export default function Create() {
     }
     const handleDname = (e) => {
         setDname(e.target.value);
+        console.log(dname, 'ininama')
     }
     const handleGender = (e) => {
         setGender(e.target.value);
-        console.log(gender)
     }
     const handleBirthday = (e) => {
         setBirthday(e.target.value);
@@ -53,7 +53,7 @@ export default function Create() {
             formData.append("birthday", birthday);
             formData.append("height", height);
             formData.append("weight", weight);
-            formData.append("interests", interest)
+            formData.append("interests", [interest])
         
         if (typeof window !== 'undefined') {
             const token = localStorage.getItem('token');
@@ -62,6 +62,8 @@ export default function Create() {
                             "x-access-token": token,
                         },
                     };    
+        
+        console.log(formData, 'formData')
 
         axios
             .post('https://techtest.youapp.ai/api/createProfile', formData, config)
@@ -70,6 +72,7 @@ export default function Create() {
             })
             .catch((err) => console.log(err));
     }}
+    
 
     const getProfile = () => {
         if (typeof window !== 'undefined') {
